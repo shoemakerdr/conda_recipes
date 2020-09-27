@@ -1,0 +1,44 @@
+{% set name = "rerun" %}
+{% set version = "1.0.30" %}
+{% set file_sha = "dd0334d2517b8ab0b3de0fff3e0370902c14057b47d2e15207a327a433a2" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://files.pythonhosted.org/packages/95/d9/{{ file_sha }}/{{ name }}-{{ version }}.zip
+  sha256: 33bf86cb3d9dcdb51c6a6712b0cefcdebd7cdffce654d6bc9c8d7aae51e500e9
+
+build:
+  number: 0
+  noarch: python
+  entry_points:
+    - rerun = rerun.rerun:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - python
+  run:
+    - python
+
+test:
+  imports:
+    - rerun
+  commands:
+    - rerun --help
+
+about:
+  home: http://pypi.python.org/pypi/rerun/
+  license: BSD
+  license_family: BSD
+  license_file: 
+  summary: Command-line script to re-run the given command when files change.
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - shoemakerdr
